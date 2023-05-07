@@ -20,4 +20,7 @@ class KleinbergGraph(NSWG):
                 self._graph.add_edge(obj, node)
 
     def load_nodes(self, obj_list: list[Object], normalize=False) -> None:
-        print('Loading...', normalize)
+        if normalize:
+            pass  # TODO: want to investigate this
+        for obj in obj_list:
+            self.add_node(obj)

@@ -25,13 +25,14 @@ def d(p1: Point, p2: Point) -> float:
 
 G = nx.Graph()
 
-G.add_node(Point(1, 1), pos=(1, 1))
-G.add_node(Point(1, 2), pos=(1, 2))
-G.add_node(Point(2, 1), pos=(2, 1))
-G.add_node(Point(9, 9), pos=(9, 9))
-G.add_node(Point(7, 7), pos=(7, 7))
+G.add_node(obj=Point(1, 1), pos=(1, 1))
+G.add_node(obj=Point(1, 2), pos=(1, 2))
+G.add_node(obj=Point(2, 1), pos=(2, 1))
+G.add_node(obj=Point(9, 9), pos=(9, 9))
+G.add_node(obj=Point(7, 7), pos=(7, 7))
 
 pos = nx.get_node_attributes(G, 'pos')
+print(pos)
 
 G.add_edge(Point(1, 1), Point(7, 7))
 print(G.nodes)

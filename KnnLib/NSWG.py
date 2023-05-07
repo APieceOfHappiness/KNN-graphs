@@ -3,8 +3,11 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Callable, Type
 
+from random import randint
+
 import matplotlib.pyplot as plt
 import networkx as nx
+
 
 
 @dataclass(frozen=True)
@@ -39,26 +42,27 @@ class NSWG(ABC):
     def get_friends(self, el: Object) -> list[Object]:  # that is not quite list
         return self._graph.neighbors(el)
 
-    def find_local_min(self, target: Object) -> Object:  # TODO: improve
-        min_ = float('inf')
-        res_ = None
-        for node in self._graph.nodes():
-            if target.dist(node) < min_:
-                min_ = target.dist(node)
-                res_ = node
-            
-            for friend in self._graph.neighbors(node):
-                if target.dist(friend) < min_:
-                    min_ = target.dist(friend)
-                    res_ = friend
-        return res_
+    def __find_local_min(self, target_node: Object, start_node: Object) -> Object:  # TODO: improve
+        min_dist = start_node.dist(target_node)
+        next_node = None
+        current_node = start_node
+        for friend_node in self.get_friends(current_node):
+            if target_node.dist(friend_node) < min_dist:
+                min_dist = target_node.dist(friend_node)
+                next_node = friend_node
+        if next_node is None:
+            return current_node
+        else:
+            return self.__find_local_min(target_node, next_node)
 
-    def multi_search(self, target: Object) -> Object:  # TODO: improve
-        mins = set()
-        new_element = self.find_local_min(target)
-        if new_element is not None:
-            mins.add(new_element)
-        return mins
+    def multi_search(self, target: Object, amount_of_queries: int) -> Object:
+        local_mins = set()
+        for _ in range(amount_of_queries):
+            if self.size != 0:
+                random_node_idx = randint(0, self.size - 1)
+                new_element = self.__find_local_min(target, list(self._graph._node)[random_node_idx])  # TODO: make an inheritence of Graph()
+                local_mins.add(new_element)
+        return local_mins
     
     def __str__(self) -> str:
         st = ""
