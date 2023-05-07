@@ -1,4 +1,4 @@
-from KnnLib.NSWG import Object, NSWG
+from NnLib.NSWG import Object, NSWG
 from typing import Type
 
 import random

@@ -1,4 +1,4 @@
-from KnnLib.NSWG import Object 
+from NnLib.NSWG import Object 
 from dataclasses import dataclass
 import numpy as np
 

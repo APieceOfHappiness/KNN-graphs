@@ -1,18 +1,23 @@
-from KnnLib.Point import Point
-from KnnLib.PonomarenkoGraph import PonomarenkoGraph
-from KnnLib.KleinbergGraph import KleinbergGraph
+from NnLib.Point import Point
+from NnLib.PonomarenkoGraph import PonomarenkoGraph
+from NnLib.KleinbergGraph import KleinbergGraph
+import random
 
 amount_of_close_friends = 2
 
 if __name__ == "__main__":
 
+    # Ponomarenko model:
+    graph = PonomarenkoGraph(Point, amount_of_close_friends=4)
+
+    # Kleinberg model:
     # graph = KleinbergGraph(Point)
-    graph = PonomarenkoGraph(Point, amount_of_close_friends=5)
 
     nodes: list[Point] = []
-    for i in range(1, 10):
-        for j in range(1, 10):
-            nodes.append(Point(i, j))
+    for i in range(100):
+        randx = random.randint(0, 10)
+        randy = random.randint(0, 10)
+        graph.add_node(Point(randx, randy))
 
     # Ponomarenko model:
     graph.load_nodes(nodes, amount_of_queries=10)

@@ -1,4 +1,4 @@
-from KnnLib.NSWG import Object, NSWG
+from NnLib.NSWG import Object, NSWG
 from sortedcontainers import SortedSet
 from typing import Type
 
@@ -22,7 +22,10 @@ class PonomarenkoGraph(NSWG):
             potential_friends |= SortedSet(self._graph.neighbors(node), key=lambda x: x.dist(obj))
         for i, node in enumerate(potential_friends):
             if i < self.__amount_of_close_friends:
-                self._graph.add_edge(node, obj)
+                if node != obj:
+                    self._graph.add_edge(node, obj)
+                else:
+                    continue
             else:
                 break
 
