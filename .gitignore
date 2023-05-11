@@ -1,7 +1,11 @@
-*.aux
-*.log
 *.fls
-*.fdb_latexmk
+*.aux
+*.dvi
+*.log
 *.toc
+*.synctex
+*.synctex.gz
+*.fdb_latexmk
+
 
 ./NnLib/__pycache__/

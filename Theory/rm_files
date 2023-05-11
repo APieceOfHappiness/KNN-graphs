@@ -1,0 +1,21 @@
+#!/bin/bash
+
+rm ./aux/*.aux
+rm ./aux/*.dvi
+rm ./aux/*.log
+rm ./aux/*.toc
+rm ./aux/*.synctex
+rm ./aux/*.synctex.gz
+rm ./aux/*.fdb_latexmk
+rm ./aux/*.fls
+
+rm *.fls
+rm *.aux
+rm *.dvi
+rm *.log
+rm *.toc
+rm *.synctex
+rm *.synctex.gz
+rm *.fdb_latexmk
+
+clear
