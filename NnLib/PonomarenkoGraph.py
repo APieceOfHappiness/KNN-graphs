@@ -1,6 +1,7 @@
 from NnLib.NSWG import Object, NSWG
-from sortedcontainers import SortedSet
 from typing import Type
+
+from sortedcontainers import SortedSet
 
 class PonomarenkoGraph(NSWG):
     __amount_of_close_friends: int
@@ -9,11 +10,11 @@ class PonomarenkoGraph(NSWG):
         super().__init__(obj_type)
         self.__amount_of_close_friends = amount_of_close_friends
 
-    def add_node(self, obj: Object, amount_of_queries: int = 7) -> None:
+    def add_node(self, obj: Object) -> None:
         if not isinstance(obj, self._obj_type):
             raise ValueError("invalid class type")
 
-        mins = self.multi_search(obj, amount_of_queries)
+        mins = self.multi_search(obj)  # FIIIIIX
         self._graph.add_node(obj)
 
         potential_friends = SortedSet(key=lambda x: x.dist(obj))
@@ -29,7 +30,7 @@ class PonomarenkoGraph(NSWG):
             else:
                 break
 
-    def load_nodes(self, obj_list: list[Object], amount_of_queries: int = 7) -> None:
+    def load_nodes(self, obj_list: list[Object]) -> None:
         for obj in obj_list:
-            self.add_node(obj, amount_of_queries=amount_of_queries)
-            
+            self.add_node(obj)
+
