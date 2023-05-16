@@ -22,15 +22,20 @@ class Object(ABC):
     def __eq__(self, other: 'Object') -> bool:
         pass
 
+    @abstractmethod
+    def random(begin: int, end: int):
+        pass
+
+
+
 class NSWG(ABC):
     _graph: nx.Graph 
-    _obj_type: Type['Object']
-    
     _sum_degree: int
 
+    _obj_type: Object
     _multi_search_queries: int
 
-    def __init__(self, obj_type: Type['Object']) -> None:
+    def __init__(self, obj_type: Object) -> None:
         self._graph = nx.Graph()
         self._obj_type = obj_type
         self._sum_degree = 0
@@ -48,12 +53,15 @@ class NSWG(ABC):
     @property
     def cc(self):
         cc_node = 0
+        cnt = 0
+        if self.size == 0:
+            return 0
         for node in self._graph.nodes():
             deg = self._graph.degree(node)
+            cnt = 0
             if deg < 2:
                 continue
             friends = self.get_friends(node)
-            cnt = 0
             for friend1 in friends:
                 for friend2 in friends:
                     if self._graph.has_edge(friend1, friend2):
@@ -67,6 +75,11 @@ class NSWG(ABC):
     @abstractmethod
     def load_nodes(self, obj_list: list[Object]) -> None:
         pass
+
+    @abstractmethod
+    def clear(self) -> None:
+        self._graph.clean()
+        self._sum_degree = 0
 
     def get_friends(self, el: Object) -> list[Object]:  # that is not quite list
         return self._graph.neighbors(el)

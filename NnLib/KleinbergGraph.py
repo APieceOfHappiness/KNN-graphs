@@ -6,9 +6,10 @@ import random
 class KleinbergGraph(NSWG):
     __redges_per_node: int
 
-    def __init__(self, obj_type: Type['Object']) -> None:
+    def __init__(self, obj_type: Type['Object'], 
+                 redges_per_node: int = 5) -> None:
         super().__init__(obj_type)
-        self.__redges_per_node = 7
+        self.__redges_per_node = redges_per_node
 
     def add_node(self, obj: Object) -> None:
         if not isinstance(obj, self._obj_type):
@@ -52,5 +53,4 @@ class KleinbergGraph(NSWG):
                     self._graph.add_edge(rnode, node)
                     self._sum_degree += 2
 
-                del nodes[rnode]      
-
+                del nodes[rnode]    
