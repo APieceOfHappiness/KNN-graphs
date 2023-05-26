@@ -24,7 +24,9 @@ class PonomarenkoGraph(NSWG):
         for i, node in enumerate(potential_friends):
             if i < self.__amount_of_close_friends:
                 if node != obj:
-                    self._graph.add_edge(node, obj)
+                    if not self._graph.has_edge(node, obj):
+                        self._graph.add_edge(node, obj)
+                        self._sum_degree += 2
                 else:
                     continue
             else:
@@ -34,3 +36,6 @@ class PonomarenkoGraph(NSWG):
         for obj in obj_list:
             self.add_node(obj)
 
+    def clean(self) -> None:
+        self._graph.clean()
+        self._sum_degree = 0

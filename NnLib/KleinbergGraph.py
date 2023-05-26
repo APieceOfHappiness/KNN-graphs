@@ -29,7 +29,7 @@ class KleinbergGraph(NSWG):
             rnode = random.choices(list(nodes.keys()), list(nodes.values()), k=1)[0]
             if not self._graph.has_edge(rnode, node):
                 self._graph.add_edge(rnode, obj)
-                self._sum_degree += 1
+                self._sum_degree += 2
 
             del nodes[rnode]
 
@@ -54,3 +54,7 @@ class KleinbergGraph(NSWG):
                     self._sum_degree += 2
 
                 del nodes[rnode]    
+
+    def clean(self) -> None:
+        self._graph.clean()
+        self._sum_degree = 0

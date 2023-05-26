@@ -16,23 +16,5 @@
   {}
 \endgroup
 
-
-\refsection{0}
-  \datalist[entry]{none/global//global/global}
-    \entry{TheSmallWorldProblem}{misc}{}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{month}{1}
-      \field{note}{[Online; accessed 15. May 2023]}
-      \field{year}{2020}
-      \verb{urlraw}
-      \verb http://snap.stanford.edu/class/cs224w-readings/milgram67smallworld.pdf
-      \endverb
-      \verb{url}
-      \verb http://snap.stanford.edu/class/cs224w-readings/milgram67smallworld.pdf
-      \endverb
-    \endentry
-  \enddatalist
-\endrefsection
 \endinput
 

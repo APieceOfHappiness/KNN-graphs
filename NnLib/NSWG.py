@@ -22,8 +22,7 @@ class Object(ABC):
     def __eq__(self, other: 'Object') -> bool:
         pass
 
-    @abstractmethod
-    def random(begin: int, end: int):
+    def random(begin: int, end: int) -> None: # important for GraphTester
         pass
 
 
@@ -67,7 +66,7 @@ class NSWG(ABC):
                     if self._graph.has_edge(friend1, friend2):
                         cnt += 1
             cc_node += cnt / (deg * (deg - 1))
-        return cnt / self.size
+        return cc_node / self.size
 
     def add_node(self, obj: Object) -> None:
         pass
@@ -77,9 +76,8 @@ class NSWG(ABC):
         pass
 
     @abstractmethod
-    def clear(self) -> None:
-        self._graph.clean()
-        self._sum_degree = 0
+    def clean(self) -> None:
+        pass
 
     def get_friends(self, el: Object) -> list[Object]:  # that is not quite list
         return self._graph.neighbors(el)

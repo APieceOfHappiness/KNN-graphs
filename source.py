@@ -8,23 +8,23 @@ amount_of_close_friends = 2
 if __name__ == "__main__":
 
     # Ponomarenko model:
-    # graph = PonomarenkoGraph(Point, amount_of_close_friends=10)
+    graph = PonomarenkoGraph(Point, amount_of_close_friends=6)
 
     # Kleinberg model:
-    graph = KleinbergGraph(Point, redges_per_node=20)
+    # graph = KleinbergGraph(Point, redges_per_node=20)
 
     nodes: list[Point] = []
     for i in range(100):
-        randx = random.randint(0, 100)
-        randy = random.randint(0, 100)
+        randx = random.randint(0, 1000)
+        randy = random.randint(0, 1000)
         nodes.append(Point(randx, randy))
 
     graph.load_nodes(nodes)
 
     print(graph)
     
-    target = Point(40.5, 40.5) 
-    closest = graph.get_nearest_neighbours(target=target, k=10)
+    target = Point(400.5, 400.5) 
+    closest = graph.get_nearest_neighbours(target=target, k=5)
 
     print(f"deg(G) = {graph.degree}")
     print(f"CC(G) = {graph.cc}")
