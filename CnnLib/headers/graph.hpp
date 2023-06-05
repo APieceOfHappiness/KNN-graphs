@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include <random>
 #include <time.h>
-#include "./point.hpp"
 
 
 namespace geli { 

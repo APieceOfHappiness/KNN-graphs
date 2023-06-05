@@ -1,8 +1,14 @@
+#ifndef GRAPH_CPP
+#define GRAPH_CPP
+
 #include "../headers/graph.hpp"
 
 namespace geli {
     template<typename TObject, typename HashFunc>
     void Graph<TObject, HashFunc>::add_node(const TObject& p) {
+        if (this->consists_node(p)) {
+            throw std::invalid_argument("node already exists");
+        }
         this->size++;
         this->graph[p];
         this->nodes.push_back(p);
@@ -44,7 +50,7 @@ namespace geli {
     template<typename TObject, typename HashFunc>
     bool Graph<TObject, HashFunc>::consists_edge(const TObject& p1, const TObject& p2) const {
         if (this->consists_node(p1)) {
-            for (auto neighbour : this->get_neighbours(p1)) {
+            for (auto &neighbour : this->get_neighbours(p1)) {
                 if (neighbour == p2) {
                     return true;
                 }
@@ -74,16 +80,22 @@ namespace geli {
 
     template<typename TObject, typename HashFunc>
     const TObject& Graph<TObject, HashFunc>::get_random_node() const {
-        srand(time(NULL));
-        return this->nodes[std::rand() % this->get_size()];
+        if (!this->get_size()) {
+            throw std::runtime_error("the graph is empty");
+        }
+        std::random_device device;
+        std::mt19937 rng(device());
+        std::uniform_int_distribution<int> range(0, this->get_size() - 1); 
+
+        return this->nodes[range(rng)];
     }
 
     template<typename TObject, typename HashFunc>
     std::ostream& operator<<(std::ostream& out, const Graph<TObject, HashFunc>& graph) {
         out << "graph {" << std::endl;
-        for (auto node : graph.nodes) {
+        for (auto &node : graph.nodes) {
             out << "\t" << node << " -> ";
-            for (auto neighbour : graph.get_neighbours(node)) {
+            for (auto &neighbour : graph.get_neighbours(node)) {
                 out << neighbour << " ";
             }
             out << std::endl;
@@ -92,3 +104,5 @@ namespace geli {
         return out;
     }
 }
+
+#endif

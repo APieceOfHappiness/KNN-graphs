@@ -1,10 +1,11 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include "./headers/graph.hpp"
+#include "../headers/graph.hpp"
+#include "../headers/point.hpp"
 
 int main() {
-    geli::Graph<geli::Point, geli::HashPoint> graph;
+    geli::Graph<geli::Point, geli::Point::HashPoint> graph;
     for (size_t i = 0; i < 10; ++i) {
         graph.add_node(geli::Point(i, i));
     }
