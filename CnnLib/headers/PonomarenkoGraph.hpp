@@ -44,7 +44,7 @@ namespace geli {
         PonomarenkoGraph(PonomarenkoGraph&& pg) = delete;
 
         void add_node(const TObject& obj, std::size_t queries_count, std::size_t edges_limit);
-        void load_nodes(const std::vector<TObject>& objects);
+        void load_nodes(const std::vector<TObject>& objects, std::size_t queries_count, std::size_t edges_limit);
 
         const TObject& greedy_search(const TObject& target_node, const TObject& start_node) const;
         TObject get_best_element(const TObject& target_node, std::size_t count) const;

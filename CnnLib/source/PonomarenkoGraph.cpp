@@ -85,6 +85,15 @@ namespace geli {
         this->multi_search(target_node, res, queries_count);
         return *res.begin();
     }
+
+    template<typename TObject, typename HashFunc>
+    void PonomarenkoGraph<TObject, HashFunc>::load_nodes(const std::vector<TObject>& objects,
+                                                         std::size_t queries_count,
+                                                         std::size_t edges_limit) {
+        for(size_t i = 0; i < objects.size(); ++i) {
+            this->add_node(objects[i], queries_count, edges_limit);
+        }
+    }
 }
 
 #endif
