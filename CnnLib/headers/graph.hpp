@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <random>
 #include <time.h>
 
@@ -21,6 +22,7 @@ namespace geli {
         std::unordered_map<TObject, std::vector<TObject>, HashFunc> graph;
         std::vector<TObject> nodes;
         size_t size;
+
     public:
         Graph() = default;
         Graph(const Graph& g) = delete;
@@ -34,6 +36,9 @@ namespace geli {
         void clear();
 
         std::size_t get_size() const;
+
+        const std::vector<TObject>& get_nodes() const;
+        // const std::unordered_map<TObject, std::vector<TObject>, HashFunc>& get_edges() const;
 
         bool consists_node(const TObject& p) const;
         bool consists_edge(const TObject& p1, const TObject& p2) const;

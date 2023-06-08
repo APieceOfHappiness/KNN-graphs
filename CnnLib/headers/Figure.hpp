@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <unordered_set>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -31,7 +32,12 @@ namespace geli {
             Figure(const Figure& f) = delete;
             Figure(Figure&& f) = delete;
 
-            // void add_graph(const AbstractGraph<Point, Point::HashPoint>& g);  TODO:
+            void add_graph(const Nswg<Point, Point::HashPoint>& g,
+                           std::size_t marker_size,
+                           std::size_t line_width,
+                           const std::string& marker_color,
+                           const std::string& line_color,
+                           const std::string& name);
 
             void update_title(const std::string& title);
 

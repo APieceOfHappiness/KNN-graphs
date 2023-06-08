@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include "./graph.hpp"
+#include "./Nswg.hpp"
 #include "./DynamicDistribution.hpp"
 
 namespace geli {
@@ -15,9 +16,7 @@ namespace geli {
     std::ostream& operator<<(std::ostream& out, const KleinbergGraph<TObject, HashFunc>& kg);
 
     template<typename TObject, typename HashFunc>
-    class KleinbergGraph {
-        Graph<TObject, HashFunc> graph;
-    
+    class KleinbergGraph : public Nswg<TObject, HashFunc>{
     public:
         KleinbergGraph() = default;
         KleinbergGraph(const KleinbergGraph& kg) = delete;

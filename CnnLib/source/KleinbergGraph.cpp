@@ -26,6 +26,7 @@ namespace geli {
                 size_t random_idx = distribution.get_random_index();
                 if (!this->graph.consists_edge(node1, nodes[random_idx])) {
                     this->graph.add_edge(node1, nodes[random_idx]);
+                    this->sum_of_degrees += 2;
                 }
             }
         }

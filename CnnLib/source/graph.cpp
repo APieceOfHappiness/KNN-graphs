@@ -12,8 +12,20 @@ namespace geli {
         this->size++;
         this->graph[p];
         this->nodes.push_back(p);
+
+        // std::cout << this->nodes.size();
     }
     
+    template<typename TObject, typename HashFunc>
+    const std::vector<TObject>& Graph<TObject, HashFunc>::get_nodes() const {
+        return this->nodes;
+    }
+
+    // template<typename TObject, typename HashFunc>
+    // const std::unordered_map<TObject, std::vector<TObject>, HashFunc>& Graph<TObject, HashFunc>::get_edges() const {
+    //     return this->graph;
+    // }
+
     template<typename TObject, typename HashFunc>
     void Graph<TObject, HashFunc>::delete_edge(const TObject& p1, const TObject& p2) {
         this->graph[p1].erase(p2);

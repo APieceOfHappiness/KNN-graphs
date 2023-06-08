@@ -39,6 +39,43 @@ namespace geli {
             this->script << "fig.update_layout(title='" + title + "')" << std::endl;
         }
 
+        void Figure::add_graph(const Nswg<Point, Point::HashPoint>& g,
+                               std::size_t marker_size,
+                               std::size_t line_width,
+                               const std::string& marker_color,
+                               const std::string& line_color,
+                               const std::string& name) {
+
+            std::unordered_set<Point, Point::HashPoint> drawn_points;
+
+            // std::vector<double> node_x;
+            // std::vector<double> node_y;
+
+            std::vector<double> edge_x;
+            std::vector<double> edge_y;
+
+            for (auto &point : g.get_nodes()) {
+                // node_x.push_back(point.x);
+                // node_y.push_back(point.y);
+
+                for (auto &neighbour : g.get_neighbours(point)) {
+                    if (drawn_points.find(neighbour) == drawn_points.end()) {
+                        edge_x.push_back(point.x);
+                        edge_x.push_back(neighbour.x);
+                        edge_x.push_back(graphic_object::Nan);
+
+                        edge_y.push_back(point.y);
+                        edge_y.push_back(neighbour.y);
+                        edge_y.push_back(graphic_object::Nan);
+                    }
+                }
+
+                drawn_points.insert(point);
+            }
+
+            this->add_markers_and_lines(edge_x, edge_y, marker_size, line_width, marker_color, line_color, name);
+        }
+
         void Figure::add_markers_and_lines(const std::vector<double>& x,
                                            const std::vector<double>& y,
                                            std::size_t marker_size,
