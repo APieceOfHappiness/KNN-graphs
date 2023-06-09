@@ -6,12 +6,8 @@
 namespace geli {
 
     template<typename TObject, typename HashFunc>
-    RandomGraph<TObject, HashFunc>::RandomGraph(double p, double mean_deg) {
-        if (p < 0 || p > 1) {
-            throw std::invalid_argument("p must be in [0, 1]");
-        }
-        this->p = p;
-        this->mean_deg = mean_deg;
+    RandomGraph<TObject, HashFunc>::RandomGraph(double mean_neighbours) {
+        this->mean_neighbours = mean_neighbours;
     }
 
     template<typename TObject, typename HashFunc>
@@ -19,6 +15,8 @@ namespace geli {
         for (auto &el : objects) {
             this->graph.add_node(el);
         }
+
+        double p = this->mean_neighbours / this->get_size();
 
         std::random_device rd;
         std::mt19937 generator(rd());

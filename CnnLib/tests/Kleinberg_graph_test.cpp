@@ -14,13 +14,13 @@ int main() {
 
     // std::unordered_set<std::pair<geli::Point, geli::Point>, geli::Point::HashPoint> s;
     // s.insert(std::make_pair(geli::Point(2, 2), geli::Point(1, 1)));
-    geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> graph;
+    geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> graph(5);
     std::vector<geli::Point> points;
     for(size_t i = 0; i < 10; ++i) {
         points.push_back(geli::Point(i, i));   
     }
 
-    graph.load_nodes(points, 5);
+    graph.load_nodes(points);
     // graph.get_nodes();
     for (const geli::Point &el : graph.get_nodes()) {
         std::cout << el;

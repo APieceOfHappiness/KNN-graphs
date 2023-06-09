@@ -17,10 +17,9 @@ namespace geli {
 
     template<typename TObject, typename HashFunc>
     class KleinbergGraph : public Nswg<TObject, HashFunc>{
-        std::size_t short_paths;
-        std::size_t long_paths;
+        size_t mean_neighbours;
     public:
-        KleinbergGraph(std::size_t short_paths, std::size_t long_paths);
+        KleinbergGraph(size_t mean_neighbours = 10);
         KleinbergGraph(const KleinbergGraph& kg) = delete;
         KleinbergGraph(KleinbergGraph&& kg) = delete;
 

@@ -27,6 +27,15 @@ namespace geli {
     // }
 
     template<typename TObject, typename HashFunc>
+    std::size_t Graph<TObject, HashFunc>::get_deg(const TObject& obj) const {
+        if (this->consists_node(obj)) {
+            return this->graph.at(obj).size();
+        } else {
+            return 0;
+        }
+    }
+
+    template<typename TObject, typename HashFunc>
     void Graph<TObject, HashFunc>::delete_edge(const TObject& p1, const TObject& p2) {
         this->graph[p1].erase(p2);
         this->graph[p2].erase(p1);

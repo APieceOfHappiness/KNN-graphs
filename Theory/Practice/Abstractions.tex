@@ -65,3 +65,218 @@ unordered\_map обращения по индексу. Для решения э�
 
 Данные абстракции в моём проекте используются, как объекты, вершины графа. 
 Они являются больше примером для наглядной демонстрации работы других классов.
+Заголовки выглядят следующим образом:
+
+
+\begin{verbatim}
+    class Point {
+        public:
+            double x;
+            double y;
+            Point() = default;
+            Point(const Point& p) = default;
+            Point(Point&& p) = default;
+            Point(double x, double y);
+            friend std::ostream& operator<<(std::ostream& out, const Point& p);
+            bool operator==(const Point& p) const;
+            static double dist(const Point& p1, const Point& p2);
+            class HashPoint {
+            public:
+                std::size_t operator()(const Point& p) const;
+            };
+            ~Point() = default;
+        };
+        class Point3D {
+        public:
+            double x;
+            double y;
+            double z;
+            Point3D() = default;
+            Point3D(const Point3D& p) = default;
+            Point3D(Point3D&& p) = default;
+            Point3D(double x, double y, double z);
+            friend std::ostream& operator<<(std::ostream& out, const Point3D p);
+            bool operator==(const Point3D p) const;
+            static double dist(const Point3D p1, const Point3D p2);
+            class HashPoint {
+            public:
+                std::size_t operator()(const Point3D& p) const;
+            };
+        };
+\end{verbatim}
+
+\subsubsection{Класс Nswg} 
+
+
+Данный класс является абстрактным. Внутри он содержит всё необходимое для реализации
+жадного поиска, однако на этом всё. Процесс формирования самого графа ложится на плечи
+потомков (поэтому метод load\_nodes помечен, как виртуальный). Данное решение было принято, чтобы не копировать в каждый новый класс одинаковые 
+методы жадного поиска.
+
+\begin{verbatim}
+    template<typename TObject, typename HashFunc>
+    class Nswg {
+    protected:
+        Graph<TObject, HashFunc> graph;
+        std::size_t sum_of_degrees = 0;
+
+        class ClosestToCompare {
+            const TObject& base;
+        public:
+            ClosestToCompare(const TObject& base) : base(base) {};
+            bool operator()(const TObject& p1, const TObject& p2) const;
+        };
+
+        void multi_search(const TObject& target_node, 
+                          std::set<TObject, ClosestToCompare>& res, 
+                          std::size_t count) const;
+
+    public:
+        virtual void load_nodes(const std::vector<TObject>& objects) = 0;
+        double get_mean_deg() const;
+        double get_cc() const;
+
+        const std::vector<TObject>& get_nodes() const;
+
+        const TObject& greedy_search(const TObject& target_node, const TObject& start_node) const;
+        std::pair<TObject, double> get_best_element(const TObject& target_node, std::size_t count) const;
+
+        const std::vector<TObject>& get_neighbours(const TObject& p) const;
+        const TObject& get_random_node() const;
+        void clear();
+        std::size_t get_size() const;
+    };
+\end{verbatim}
+
+Также, хотелось бы ещё рассказать почему я использую внутренние дополнительный класс ClosestToCompare(). 
+Как я уже описывал, в жадном поиске нам нужно искать k вершин наиболее близких с нашей.
+Постоянные сортировки могли достаточно сильно ухудшить производительность модели, поэтому я принял решение, 
+написать предикат, который будет сортировать вершины в set() сразу так, как нужно:
+\begin{itemize}
+    \item В конструктор класса мы передаём объект v
+    \item Чем ближе вершина к v, тем первее она будет находится в set.
+    \item Однако возникнет проблема, что 2 узла на одном расстоянии теперь будут считаться
+    одинаковыми, а значит, в set добавится только один из них. Для решения этой проблемы, мне пришлось
+    добавить второе условие, котороые сравнивает хеши вершин и сортирует на основе их значений:
+\end{itemize}
+
+\begin{verbatim}
+    template<typename TObject, typename HashFunc>
+    bool Nswg<TObject, HashFunc>::ClosestToCompare::operator()(const TObject& p1, const TObject& p2) const {
+        double d1 = TObject::dist(p1, base);
+        double d2 = TObject::dist(p2, base);
+        if (d1 != d2) {
+            return TObject::dist(p1, base) < TObject::dist(p2, base);
+        } else {
+            HashFunc hash;
+            return hash(p1) < hash(p2);
+        }
+    }
+\end{verbatim}
+
+\subsubsection{PonomarenkoGraph}
+
+Является наследником класса Nswg и с помощью метода load\_nodes реализует построение графа.
+Алгоритм построения уже был разобран в блок схеме выше.
+
+\begin{verbatim}
+    template<typename TObject, typename HashFunc>
+    class PonomarenkoGraph : public Nswg<TObject, HashFunc> {
+        std::size_t queries_count = 5;
+        std::size_t edges_count = 7;
+    public:
+        PonomarenkoGraph(std::size_t queries_count = 5, std::size_t edges_count = 7);
+        // PonomarenkoGraph(const std::vector<TObject>& objects);
+
+        PonomarenkoGraph(const PonomarenkoGraph& pg) = delete;
+        PonomarenkoGraph(PonomarenkoGraph&& pg) = delete;
+
+        void add_node(const TObject& obj);
+        void load_nodes(const std::vector<TObject>& objects) override;
+
+        friend std::ostream& operator<< <>(std::ostream& out, const PonomarenkoGraph<TObject, HashFunc>& pgraph);
+
+        ~PonomarenkoGraph() = default;
+    };
+\end{verbatim}
+
+
+\subsubsection{KleinbergGraph}
+
+Является наследником класса Nswg и с помощью метода load\_nodes реализует построение графа.
+Алгоритм построения уже был разобран в блок схеме выше.
+
+\subsubsection{RandomGraph}
+
+Данный класс был реализован на основе графов Erdos-Renye. Был создан для сравнительного анализа
+
+\begin{verbatim}
+    template<typename TObject, typename HashFunc>
+    class RandomGraph : public Nswg<TObject, HashFunc> {
+        double mean_neighbours;
+    public:
+        RandomGraph(double mean_neighbours);
+        RandomGraph(const RandomGraph& rg) = delete;
+        RandomGraph(RandomGraph&& rg) = delete;
+
+        void load_nodes(const std::vector<TObject>& objects) override;
+
+        ~RandomGraph() = default;
+    };
+\end{verbatim}
+
+\subsubsection{Figure}
+
+Данная абстракция была создана с целью упрощения визуализации графов и графиков.
+Он работает по очень простому принципу: Под капотом она пишет скрипт на питоне, который
+записывает в отдельный файл. После чего в отдельном процессе этот файл запускается и 
+выводит данные в виде графиков. В Питоне я использовал библиотеку Plotly
+
+
+\begin{verbatim}
+    class Figure {
+        std::ofstream script;
+        std::string name;
+        void write_vector_as_list(const std::string& name, const std::vector<double> &data);
+    public:
+        Figure() = delete; // TODO: why not
+        Figure(const std::string& name);
+        Figure(const Figure& f) = delete;
+        Figure(Figure&& f) = delete;
+        void add_graph(const Nswg<Point, Point::HashPoint>& g,
+                       std::size_t marker_size,
+                       std::size_t line_width,
+                       const std::string& marker_color,
+                       const std::string& line_color,
+                       const std::string& name);
+        void update_title(const std::string& title);
+        void add_markers_and_lines(const std::vector<double>& x,
+                                   const std::vector<double>& y,
+                                   std::size_t marker_size,
+                                   std::size_t line_width,
+                                   const std::string& marker_color,
+                                   const std::string& line_color,
+                                   const std::string& name);
+        void add_markers(const std::vector<double>& x,
+                         const std::vector<double>& y,
+                         std::size_t marker_size,
+                         const std::string& marker_color,
+                         const std::string& name);
+        void add_line(const std::vector<double>& x,
+                      const std::vector<double>& y,
+                      std::size_t line_width,
+                      const std::string& line_color,
+                      const std::string& name);
+        void update_xaxes(const std::string& x_title, 
+                          const std::string& axis_type);
+        void update_yaxes(const std::string& y_title, 
+                          const std::string& axis_type);
+        void show();
+        ~Figure();
+    };
+\end{verbatim}
+
+\subsubsection{DynamicDistribution}
+
+
+

@@ -10,14 +10,13 @@ namespace geli {
 
     template<typename TObject, typename HashFunc>
     class RandomGraph : public Nswg<TObject, HashFunc> {
-        double p;
-        double mean_deg;
+        double mean_neighbours;
     public:
-        RandomGraph(double p = 0.5, double mean_deg = 5);
+        RandomGraph(double mean_neighbours);
         RandomGraph(const RandomGraph& rg) = delete;
         RandomGraph(RandomGraph&& rg) = delete;
 
-        void load_nodes(const std::vector<TObject>& objects);
+        void load_nodes(const std::vector<TObject>& objects) override;
 
         ~RandomGraph() = default;
     };

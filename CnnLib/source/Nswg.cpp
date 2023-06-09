@@ -28,10 +28,35 @@ namespace geli {
     // }
 
     template<typename TObject, typename HashFunc>
-    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node) const {
-        if (!this->graph.consists_node(start_node)) {
-            throw std::invalid_argument("nodes are not in the graph");
+    double Nswg<TObject, HashFunc>::get_cc() const {
+        double cc_sum = 0;
+
+        for (auto &node : this->get_nodes()) {
+            double real_edges = 0;
+            double all_edges = 0;
+            std::size_t d = this->graph.get_deg(node);
+            all_edges += d * (d - 1) / 2; 
+            if (all_edges == 0) {
+                continue;
+            }
+            const std::vector<TObject> &neighbours = this->graph.get_neighbours(node);
+            for (size_t i = 0; i < d - 1; ++i) {
+                for (size_t j = i + 1; j < d; ++j) {
+                    if (this->graph.consists_edge(neighbours[i], neighbours[j])) {
+                        real_edges++;
+                    }
+                }
+            }
+            cc_sum += real_edges / all_edges;
         }
+        return cc_sum / this->get_size();
+    }
+
+    template<typename TObject, typename HashFunc>
+    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node) const {
+        // if (!this->graph.consists_node(start_node)) {
+        //     throw std::invalid_argument("nodes are not in the graph");
+        // }
         
         const TObject *cur_node = &start_node;
         const TObject *next_node = nullptr;
@@ -67,11 +92,11 @@ namespace geli {
     }
 
     template<typename TObject, typename HashFunc>
-    TObject Nswg<TObject, HashFunc>::get_best_element(const TObject& target_node, 
+    std::pair<TObject, double> Nswg<TObject, HashFunc>::get_best_element(const TObject& target_node, 
                                                       std::size_t queries_count) const {
         std::set<TObject, ClosestToCompare> res {ClosestToCompare(target_node)};
         this->multi_search(target_node, res, queries_count);
-        return *res.begin();
+        return std::make_pair(*res.begin(), TObject::dist(*res.begin(), target_node));
     }
 
     template<typename TObject, typename HashFunc>

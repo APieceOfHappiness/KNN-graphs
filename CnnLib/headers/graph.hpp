@@ -36,6 +36,7 @@ namespace geli {
         void clear();
 
         std::size_t get_size() const;
+        std::size_t get_deg(const TObject& obj) const;
 
         const std::vector<TObject>& get_nodes() const;
         // const std::unordered_map<TObject, std::vector<TObject>, HashFunc>& get_edges() const;

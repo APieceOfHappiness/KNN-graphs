@@ -114,28 +114,31 @@
     \end{cases}
 \end{equation*}
 
-Давайте докажем, что в случайный граф не подходит под это определение.
-Докажема, что коэффицент кластеризации стремится к 0 с ростом n: \\
-Для начала посчитаем $\mathbb{E}[cc(v)]$. Обозначим $N = \binom{deg(v)}{t}, \ t \leq deg(v)$.
-Тогда:
-\begin{equation*}
-    P(N * cc(v) = t) = \binom{N}{t}p^t(1 - p)^{N - t} \Rightarrow N * cc(v) \sim Bin(p) 
-\end{equation*}
-Тогда $\mathbb{E}[N * cc(v)] = Np \Rightarrow \mathbb{E}[cc(v)] = p : \forall N \in \mathbb{N}$
-Заметим, что $cc(v)$  хоть и распределены одинаково, однако не независимы. Я утверждаю, что мы
-этим можем пренебречь, так как $k \ll n$. Данная гипотеза будет обоснована позднее. \\
-Если считать, что $cc(v)$ - i.i.d, то можно использовать УЗБЧ:
-\begin{equation*}
-    cc(G) = \overline{cc(v)} \overset{a.s.}{\rightarrow} 
-    \mathbb{E}[cc(v)] = p = \frac{\lambda}{n} \rightarrow 0, \ n \rightarrow \infty
-\end{equation*}
-Теперь сформулируем гипотезу о независимости:
-\begin{equation*}
-    H_0: cc(u_i) - iid, \ \forall u \in V : k \ll n
-\end{equation*}
-\begin{equation*}
-    H_1: alternative 
-\end{equation*}
+В практической части, будет показано, что $cc(G) \rightarrow 0$ с ростом n, где G - случайный граф
+по модели Erdos-Renye
+
+% Давайте докажем, что в случайный граф не подходит под это определение.
+% Докажема, что коэффицент кластеризации стремится к 0 с ростом n: \\
+% Для начала посчитаем $\mathbb{E}[cc(v)]$. Обозначим $N = \binom{deg(v)}{t}, \ t \leq deg(v)$.
+% Тогда:
+% \begin{equation*}
+%     P(N * cc(v) = t) = \binom{N}{t}p^t(1 - p)^{N - t} \Rightarrow N * cc(v) \sim Bin(p) 
+% \end{equation*}
+% Тогда $\mathbb{E}[N * cc(v)] = Np \Rightarrow \mathbb{E}[cc(v)] = p : \forall N \in \mathbb{N}$
+% Заметим, что $cc(v)$  хоть и распределены одинаково, однако не независимы. Я утверждаю, что мы
+% этим можем пренебречь, так как $k \ll n$. Данная гипотеза будет обоснована позднее. \\
+% Если считать, что $cc(v)$ - i.i.d, то можно использовать УЗБЧ:
+% \begin{equation*}
+%     cc(G) = \overline{cc(v)} \overset{a.s.}{\rightarrow} 
+%     \mathbb{E}[cc(v)] = p = \frac{\lambda}{n} \rightarrow 0, \ n \rightarrow \infty
+% \end{equation*}
+% Теперь сформулируем гипотезу о независимости:
+% \begin{equation*}
+%     H_0: cc(u_i) - iid, \ \forall u \in V : k \ll n
+% \end{equation*}
+% \begin{equation*}
+%     H_1: alternative 
+% \end{equation*}
 Хочется ещё подметить, что тесные графы встречаются очень часто в природе.
 Нейронные сети в нашем мозге, карты дорог, пищевые цепочки. Их формирование кажется
 впоне логичным. Мозгу необходимо, чтобы сигнал быстро перемещался между нейронами,
