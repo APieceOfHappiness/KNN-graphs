@@ -16,34 +16,84 @@ double rrange(int min, int max) {
 
 int main() {
     
-    
     std::vector<geli::Point> points;
 
-    for (size_t i = 0; i < 10; ++i) {
-        for (size_t j = 0; j < 10; ++j) {
-            points.push_back(geli::Point(i, j));
-        }
+    for (size_t points_cnt = 0; points_cnt < 1000; ++points_cnt) {
+        points.push_back(geli::Point(rrange(0, 200), rrange(0, 200)));
     }  
 
-    geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(2, 5);
+    // std::vector<geli::Point> points;
 
-    kgraph.load_nodes(points);
+    // points.push_back(geli::Point(0, 0));
+    // points.push_back(geli::Point(1, 1));
 
-    geli::graphic_object::Figure fig("Kleinberg");
-    fig.add_graph(kgraph, 10, 3, "red", "blue", "smth");
-    fig.update_title("MEGA GRAPH");
-    fig.update_xaxes("X axis", "linear");
-    fig.update_yaxes("Y axis", "linear");
+    std::vector<double> res1;
+    std::vector<double> res2;
+    std::vector<double> res3;
+    std::vector<double> x;
+    for (size_t n = 3; n < 100; ++n) {      
+        geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(1, 16);
+        geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(7, 3);
+        geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(5);
+        rgraph.load_nodes(points);
+        kgraph.load_nodes(points);
+        pgraph.load_nodes(points);
+        
+        x.push_back(n);
+        res1.push_back(pgraph.get_cc());
+        res2.push_back(kgraph.get_cc());
+        res3.push_back(rgraph.get_cc());
+
+
+        points.push_back(geli::Point(n, n));
+        rgraph.clear();
+        pgraph.clear();
+        kgraph.clear();
+        std::cout << n;
+    }
+
+    geli::graphic_object::Figure fig("CC_RandomGraph");
+    fig.add_line(x, res1, 5, "green", "cc_NN");
+    fig.add_line(x, res2, 5, "blue", "cc_Kleinberg");
+    fig.add_line(x, res3, 5, "red", "cc_Random");
+    fig.update_xaxes("n", "linear");
+    fig.update_yaxes("cc", "linear");
     fig.show();    
+
+    // std::vector<geli::ManhPoint> points;
+
+    // for (size_t i = 1; i < 10;  ++i) {
+    //     for (size_t j = 1; j < 10; ++j) {
+    //         points.push_back(geli::ManhPoint(i * 1, j * 1));
+    //     }
+    // }  
+
+
+    
+    // for (size_t sh = 1; sh < 10; ++sh) {
+    //     for (size_t lng = 1; lng < 10; ++lng) {
+    //         geli::KleinbergGraph<geli::ManhPoint, geli::ManhPoint::HashPoint> kgraph(sh, lng);
+    //         kgraph.load_nodes(points);
+    //         std::cout << sh << ", " <<  lng << "|" << kgraph.get_cc() << std::endl;
+    //         kgraph.clear();
+    //     }
+    // }
+
+    // geli::graphic_object::Figure fig("Kleinberg");
+    // fig.add_graph(kgraph, 10, 3, "red", "blue", "smth");
+    // fig.update_title("MEGA GRAPH");
+    // fig.update_xaxes("X axis", "linear");
+    // fig.update_yaxes("Y axis", "linear");
+    // fig.show();    
 
     // ------------------------------------------------------------------
     
+
     // std::vector<geli::Point> points;
 
-    // for (size_t points_cnt = 0; points_cnt < 100; ++points_cnt) {
-    //     points.push_back(geli::Point(rrange(0, 1000), rrange(0, 1000)));
+    // for (size_t points_cnt = 0; points_cnt < 3000; ++points_cnt) {
+    //     points.push_back(geli::Point(rrange(0, 200), rrange(0, 200)));
     // }  
-
     // geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(10, 10);
     // geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(20, 20);
     // geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(20);
@@ -64,12 +114,12 @@ int main() {
     // std::vector<double> kccs;
     // std::vector<double> rccs;
     // std::vector<double> xs;
-    // for(size_t i = 5; i < 100; i += 5) {
-    //     geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(3, i / 2);
-    //     // geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(i);
-    //     geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(i);
+    // for(size_t i = 0; i < 15; i++) {
+        // geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(3, 14 + i);
+        // geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(11, i);
+        // geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(27 + i * 2);
     //     pgraph.load_nodes(points);
-    //     // kgraph.load_nodes(points);
+    //     kgraph.load_nodes(points);
     //     rgraph.load_nodes(points);
 
     //     double pccs_temp = 0;
@@ -77,25 +127,25 @@ int main() {
     //     double rccs_temp = 0;
     //     for (size_t atts = 0; atts < 1000; ++atts) {
     //         pccs_temp += pgraph.get_best_element(points[i % 100], 1).second;           
-    //         // kccs_temp += kgraph.get_best_element(points[i % 100], 1).second;
+    //         kccs_temp += kgraph.get_best_element(points[i % 100], 1).second;
     //         rccs_temp += rgraph.get_best_element(points[i % 100], 1).second;            
     //     }
-    //     pccs.push_back(pccs_temp);
-    //     kccs.push_back(kccs_temp);
-    //     rccs.push_back(rccs_temp);
+    //     pccs.push_back(pccs_temp / 1000);
+    //     kccs.push_back(kccs_temp / 1000);
+    //     rccs.push_back(rccs_temp / 1000);
     //     xs.push_back(i);
     //     std::cout << pgraph.get_mean_deg() << std::endl;
-    //     // std::cout << kgraph.get_mean_deg() << std::endl;
+    //     std::cout << kgraph.get_mean_deg() << std::endl;
     //     std::cout << rgraph.get_mean_deg() << std::endl << std::endl;
     //     pgraph.clear();
-    //     // kgraph.clear();
+    //     kgraph.clear();
     //     rgraph.clear();
     // }
 
     // geli::graphic_object::Figure fig("CC_G");
     // fig.add_line(xs, pccs, 5, "blue", "pgraph loss");
-    // // fig.add_line(xs, kccs, 5, "red", "kgraph loss");
-    // // fig.add_line(xs, rccs, 5, "green", "rgraph loss");
+    // fig.add_line(xs, kccs, 5, "red", "kgraph loss");
+    // fig.add_line(xs, rccs, 5, "green", "rgraph loss");
     // fig.update_title("Sum loss of graphs");
     // fig.update_xaxes("parametr", "linear");
     // fig.update_yaxes("loss", "linear");
@@ -105,8 +155,8 @@ int main() {
 
     // std::vector<geli::Point> points;
 
-    // for (size_t points_cnt = 0; points_cnt < 1000; ++points_cnt) {
-    //     points.push_back(geli::Point(rrange(0, 1000), rrange(0, 1000)));
+    // for (size_t points_cnt = 0; points_cnt < 3000; ++points_cnt) {
+    //     points.push_back(geli::Point(rrange(0, 200), rrange(0, 200)));
     // }  
 
     // std::vector<double> pccs;
@@ -115,10 +165,10 @@ int main() {
     // std::vector<double> xs1;
     // std::vector<double> xs2;
     // std::vector<double> xs3;
-    // for(size_t i = 5; i < 100; i += 5) {
-    //     geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(1, i / 2);
-    //     geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(i);
-    //     geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(i);
+    // for(size_t i = 0; i < 10; i += 1) {
+    //     geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph(3, 14 + i);
+    //     geli::KleinbergGraph<geli::Point, geli::Point::HashPoint> kgraph(11, i);
+    //     geli::RandomGraph<geli::Point, geli::Point::HashPoint> rgraph(27 + i * 2);
     //     pgraph.load_nodes(points);
     //     kgraph.load_nodes(points);
     //     rgraph.load_nodes(points);

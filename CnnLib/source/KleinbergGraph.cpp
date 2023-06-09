@@ -17,17 +17,22 @@ namespace geli {
             this->graph.add_node(node1);
         }
         
+        HashFunc hash;
         DynamicDistribution distribution;
         for(auto &node1 : nodes) {
             distribution.clear();
             for (auto &node2 : nodes) {
                 double dist = TObject::dist(node1, node2);
-                if (std::abs(dist) < 1e-8) {
+                if (node1 == node2) {
                     distribution.push_back(0);
                     continue;
                 }
+                
                 if (dist <= this->short_paths) {
-                    this->graph.add_edge(node1, node2);
+                    if (!this->graph.consists_edge(node1, node2)) {
+                        this->graph.add_edge(node1, node2);
+                        this->sum_of_degrees += 2;
+                    }
                 } else {
                     distribution.push_back(1 / (dist * dist));
                 }

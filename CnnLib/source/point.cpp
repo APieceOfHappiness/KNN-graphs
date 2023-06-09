@@ -65,6 +65,31 @@ namespace geli {
         add_to_seed(seed_val, p.z);
         return seed_val;
     }
+
+    ManhPoint::ManhPoint(double x, double y) {
+        this->x = x;
+        this->y = y;
+    }
+
+    bool ManhPoint::operator==(const ManhPoint& p) const {
+        return (p.x == this->x) && (p.y == this->y); 
+    }
+
+    std::size_t ManhPoint::HashPoint::operator()(const ManhPoint& p) const {
+        std::size_t seed_val = 0;
+        add_to_seed(seed_val, p.x);
+        add_to_seed(seed_val, p.y);
+        return seed_val;
+    }
+
+    std::ostream& operator<<(std::ostream& out, const ManhPoint& p) {
+        out << "(" << p.x << ", " << p.y << ")";
+        return out;
+    }
+
+    double ManhPoint::dist(const ManhPoint& p1, const ManhPoint& p2) {
+        return std::abs(p1.x - p2.x) + std::abs((p1.y - p2.y));
+    }
 }
 
 #endif
