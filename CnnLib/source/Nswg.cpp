@@ -23,8 +23,8 @@ namespace geli {
     }
 
     // template<typename TObject, typename HashFunc>
-    // const std::unordered_map<TObject, std::vector<TObject>, HashFunc>& Nswg<TObject, HashFunc>::get_edges() const {
-    //     return this->graph.get_edges();
+    // double get_mean_dist() const {
+
     // }
 
     template<typename TObject, typename HashFunc>
@@ -53,10 +53,7 @@ namespace geli {
     }
 
     template<typename TObject, typename HashFunc>
-    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node) const {
-        // if (!this->graph.consists_node(start_node)) {
-        //     throw std::invalid_argument("nodes are not in the graph");
-        // }
+    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node, std::size_t *path_len) const {
         
         const TObject *cur_node = &start_node;
         const TObject *next_node = nullptr;
@@ -68,7 +65,10 @@ namespace geli {
             }
         }
         if (next_node) {
-            return this->greedy_search(target_node, *next_node);
+            if (path_len) {
+                *path_len += 1;
+            }
+            return this->greedy_search(target_node, *next_node, path_len);
         } else {
             return *cur_node;
         }
@@ -77,7 +77,8 @@ namespace geli {
     template<typename TObject, typename HashFunc>
     void Nswg<TObject, HashFunc>::multi_search(const TObject& target_node, 
                                                std::set<TObject, ClosestToCompare>& res, 
-                                               std::size_t queries_count) const {
+                                               std::size_t queries_count,
+                                               std::size_t *path_len) const {
         if (!res.size()) {
             res.clear();
         }
@@ -86,17 +87,22 @@ namespace geli {
         }
         for (std::size_t i = 0; i < queries_count; ++i) {
             const TObject& enter_node = this->graph.get_random_node();
-            const TObject& local_min = this->greedy_search(target_node, enter_node);
+            const TObject& local_min = this->greedy_search(target_node, enter_node, path_len);
             res.insert(local_min);
         }
     }
 
     template<typename TObject, typename HashFunc>
-    std::pair<TObject, double> Nswg<TObject, HashFunc>::get_best_element(const TObject& target_node, 
+    SearchInfo<TObject> Nswg<TObject, HashFunc>::get_best_element(const TObject& target_node, 
                                                       std::size_t queries_count) const {
         std::set<TObject, ClosestToCompare> res {ClosestToCompare(target_node)};
-        this->multi_search(target_node, res, queries_count);
-        return std::make_pair(*res.begin(), TObject::dist(*res.begin(), target_node));
+        SearchInfo<TObject> info;
+        info.path_len = 0;
+
+        this->multi_search(target_node, res, queries_count, &info.path_len);
+        info.obj = *res.begin();
+        info.loss = TObject::dist(*res.begin(), target_node);
+        return info;
     }
 
     template<typename TObject, typename HashFunc>

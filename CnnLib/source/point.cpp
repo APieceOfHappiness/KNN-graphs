@@ -66,29 +66,23 @@ namespace geli {
         return seed_val;
     }
 
-    ManhPoint::ManhPoint(double x, double y) {
-        this->x = x;
-        this->y = y;
+    const Point& Point::operator=(const Point& p) {
+        this->x = p.x;
+        this->y = p.y;
+        return *this;
+    }
+    const Point& Point::operator=(Point&& p) {
+        return this->operator=(p);
     }
 
-    bool ManhPoint::operator==(const ManhPoint& p) const {
-        return (p.x == this->x) && (p.y == this->y); 
+    const Point3D& Point3D::operator=(const Point3D& p) {
+        this->x = p.x;
+        this->y = p.y;
+        this->z = p.y;
+        return *this;
     }
-
-    std::size_t ManhPoint::HashPoint::operator()(const ManhPoint& p) const {
-        std::size_t seed_val = 0;
-        add_to_seed(seed_val, p.x);
-        add_to_seed(seed_val, p.y);
-        return seed_val;
-    }
-
-    std::ostream& operator<<(std::ostream& out, const ManhPoint& p) {
-        out << "(" << p.x << ", " << p.y << ")";
-        return out;
-    }
-
-    double ManhPoint::dist(const ManhPoint& p1, const ManhPoint& p2) {
-        return std::abs(p1.x - p2.x) + std::abs((p1.y - p2.y));
+    const Point3D& Point3D::operator=(Point3D&& p) {
+        return this->operator=(p);
     }
 }
 

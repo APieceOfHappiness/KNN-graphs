@@ -174,29 +174,30 @@ unordered\_map обращения по индексу. Для решения э�
     }
 \end{verbatim}
 
-\subsubsection{PonomarenkoGraph}
+\subsubsection{NNGraph}
 
 Является наследником класса Nswg и с помощью метода load\_nodes реализует построение графа.
+Испрользует подход математиков из Нижнего Новгорода, упомянутых выше
 Алгоритм построения уже был разобран в блок схеме выше.
 
 \begin{verbatim}
     template<typename TObject, typename HashFunc>
-    class PonomarenkoGraph : public Nswg<TObject, HashFunc> {
+    class NNGraph : public Nswg<TObject, HashFunc> {
         std::size_t queries_count = 5;
         std::size_t edges_count = 7;
     public:
-        PonomarenkoGraph(std::size_t queries_count = 5, std::size_t edges_count = 7);
-        // PonomarenkoGraph(const std::vector<TObject>& objects);
+        NNGraph(std::size_t queries_count = 5, std::size_t edges_count = 7);
+        // NNGraph(const std::vector<TObject>& objects);
 
-        PonomarenkoGraph(const PonomarenkoGraph& pg) = delete;
-        PonomarenkoGraph(PonomarenkoGraph&& pg) = delete;
+        NNGraph(const NNGraph& pg) = delete;
+        NNGraph(NNGraph&& pg) = delete;
 
         void add_node(const TObject& obj);
         void load_nodes(const std::vector<TObject>& objects) override;
 
-        friend std::ostream& operator<< <>(std::ostream& out, const PonomarenkoGraph<TObject, HashFunc>& pgraph);
+        friend std::ostream& operator<< <>(std::ostream& out, const NNGraph<TObject, HashFunc>& pgraph);
 
-        ~PonomarenkoGraph() = default;
+        ~NNGraph() = default;
     };
 \end{verbatim}
 
@@ -276,7 +277,6 @@ unordered\_map обращения по индексу. Для решения э�
     };
 \end{verbatim}
 
-\subsubsection{DynamicDistribution}
 
 
 

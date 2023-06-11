@@ -9,7 +9,7 @@
 int main() {
     geli::Point start(0, 0);
     geli::Point target(5.5, 5.5);
-    geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint, geli::Point::EuclideanDist> pgraph;
+    geli::PonomarenkoGraph<geli::Point, geli::Point::HashPoint> pgraph;
     for (std::size_t i = 0; i < 10; ++i) {
         pgraph.add_node(geli::Point(i, i), 5, 3);
     }

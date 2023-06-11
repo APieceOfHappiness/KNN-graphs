@@ -16,7 +16,7 @@ namespace geli {
         std::set<TObject, typename Nswg<TObject, HashFunc>::ClosestToCompare> local_mins {typename Nswg<TObject, HashFunc>::ClosestToCompare(obj)};
         std::set<TObject, typename Nswg<TObject, HashFunc>::ClosestToCompare> res_mins {typename Nswg<TObject, HashFunc>::ClosestToCompare(obj)};
         this->graph.add_node(obj);
-        this->multi_search(obj, local_mins, this->queries_count); // TODO: dynamic cnt
+        this->multi_search(obj, local_mins, this->queries_count, nullptr); // TODO: dynamic cnt
         for (auto &local_min : local_mins) {
             if (local_min == obj) {
                 continue;

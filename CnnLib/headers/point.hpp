@@ -26,29 +26,11 @@ namespace geli {
         public:
             std::size_t operator()(const Point& p) const;
         };
+        
+        const Point& operator=(const Point& p);
+        const Point& operator=(Point&& p);
         ~Point() = default;
     };
-
-    class ManhPoint {
-    public:
-        double x;
-        double y;
-        ManhPoint() = default;
-        ManhPoint(const ManhPoint& p) = default;
-        ManhPoint(ManhPoint&& p) = default;
-        ManhPoint(double x, double y);
-        friend std::ostream& operator<<(std::ostream& out, const ManhPoint& p);
-        bool operator==(const ManhPoint& p) const;
-        
-        static double dist(const ManhPoint& p1, const ManhPoint& p2);
-        
-        class HashPoint {
-        public:
-            std::size_t operator()(const ManhPoint& p) const;
-        };
-        ~ManhPoint() = default;
-    };
-
 
     class Point3D {
     public:
@@ -66,6 +48,9 @@ namespace geli {
         public:
             std::size_t operator()(const Point3D& p) const;
         };
+
+        const Point3D& operator=(const Point3D& p);
+        const Point3D& operator=(Point3D&& p);
     };
 
     

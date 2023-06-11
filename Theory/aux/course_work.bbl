@@ -16,5 +16,121 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{Kleinberg}{book}{}
+      \name{author}{1}{}{%
+        {{hash=e405ae3c720db1b0e447ff5b601b968f}{%
+           family={Kleinberg},
+           familyi={K\bibinitperiod},
+           given={Jon},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Department of Computer Science}%
+      }
+      \strng{namehash}{e405ae3c720db1b0e447ff5b601b968f}
+      \strng{fullhash}{e405ae3c720db1b0e447ff5b601b968f}
+      \strng{bibnamehash}{e405ae3c720db1b0e447ff5b601b968f}
+      \strng{authorbibnamehash}{e405ae3c720db1b0e447ff5b601b968f}
+      \strng{authornamehash}{e405ae3c720db1b0e447ff5b601b968f}
+      \strng{authorfullhash}{e405ae3c720db1b0e447ff5b601b968f}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Report 19-1776}
+      \field{title}{The Small-World Phenomenon: An Algorithmic Perspective}
+      \field{year}{1999}
+    \endentry
+    \entry{Kleinberg2}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a1f5b9dc77b365b9f2a99d291c3143bb}{%
+           family={Michael\bibnamedelimb T.\bibnamedelimi Goodrich},
+           familyi={M\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Evrim\bibnamedelima Ozel},
+           giveni={E\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Dept. of Computer Science, University of California, Irvine}%
+      }
+      \strng{namehash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \strng{fullhash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \strng{bibnamehash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \strng{authorbibnamehash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \strng{authornamehash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \strng{authorfullhash}{a1f5b9dc77b365b9f2a99d291c3143bb}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Modeling the Small-World Phenomenon with Road Networks}
+      \field{year}{1999}
+      \verb{urlraw}
+      \verb goodrich@uci.edu, eozel@uci.edu
+      \endverb
+      \verb{url}
+      \verb goodrich@uci.edu,%20eozel@uci.edu
+      \endverb
+    \endentry
+    \entry{Milgram}{article}{}
+      \name{author}{1}{}{%
+        {{hash=729208d75af2cb2876283c41810fe91a}{%
+           family={{Stanley Milgram}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {english}%
+      }
+      \strng{namehash}{729208d75af2cb2876283c41810fe91a}
+      \strng{fullhash}{729208d75af2cb2876283c41810fe91a}
+      \strng{bibnamehash}{729208d75af2cb2876283c41810fe91a}
+      \strng{authorbibnamehash}{729208d75af2cb2876283c41810fe91a}
+      \strng{authornamehash}{729208d75af2cb2876283c41810fe91a}
+      \strng{authorfullhash}{729208d75af2cb2876283c41810fe91a}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Psychology Today}
+      \field{langid}{english}
+      \field{number}{1}
+      \field{title}{{The Small-World Problem}}
+      \field{volume}{1}
+      \field{year}{1967}
+      \field{pages}{61\bibrangedash 67}
+      \range{pages}{7}
+    \endentry
+    \entry{Ponomarenko}{article}{}
+      \name{author}{1}{}{%
+        {{hash=281f874365fd04faf841311a7c453366}{%
+           family={{А.А. Пономаренко, Ю.А. Мальков, А.А. Логвинов, В.В. Крылов}},
+           familyi={А\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \strng{namehash}{281f874365fd04faf841311a7c453366}
+      \strng{fullhash}{281f874365fd04faf841311a7c453366}
+      \strng{bibnamehash}{281f874365fd04faf841311a7c453366}
+      \strng{authorbibnamehash}{281f874365fd04faf841311a7c453366}
+      \strng{authornamehash}{281f874365fd04faf841311a7c453366}
+      \strng{authorfullhash}{281f874365fd04faf841311a7c453366}
+      \field{sortinit}{А}
+      \field{sortinithash}{9db8541854f3671fde760253476fbbdb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Вестник Нижегородского университета имени Лобачевского}
+      \field{langid}{russian}
+      \field{number}{5}
+      \field{title}{{Структура со свойствами тесного мира для решения задачи поиска ближайшего соседа в метрическом пространстве}}
+      \field{volume}{21}
+      \field{year}{2012}
+      \field{pages}{409\bibrangedash 415}
+      \range{pages}{7}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
