@@ -24,7 +24,7 @@ namespace geli {
         size_t size;
 
     public:
-        Graph() = default;
+        Graph();
         Graph(const Graph& g) = delete;
         Graph(Graph&& g) = delete;
 
@@ -54,7 +54,7 @@ namespace geli {
     };
 }
 
-#include "../source/graph.cpp"
+#include "../source/Graph.cpp"
 
 #endif
 

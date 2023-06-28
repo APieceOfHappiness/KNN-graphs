@@ -1,7 +1,7 @@
 #ifndef POINT_CPP
 #define POINT_CPP
 
-#include "../headers/point.hpp"
+#include "../headers/Point.hpp"
 
 
 

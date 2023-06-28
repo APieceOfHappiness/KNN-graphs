@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <random>
-#include "./graph.hpp"
+#include "./Graph.hpp"
 #include "./Nswg.hpp"
 #include "./DynamicDistribution.hpp"
 
@@ -22,6 +22,7 @@ namespace geli {
         KleinbergGraph(size_t mean_neighbours = 10);
         KleinbergGraph(const KleinbergGraph& kg) = delete;
         KleinbergGraph(KleinbergGraph&& kg) = delete;
+Your branch is up to date with 'origin/main'.
 
         void load_nodes(const std::vector<TObject>& nodes) override;
 

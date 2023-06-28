@@ -53,7 +53,7 @@ namespace geli {
     }
 
     template<typename TObject, typename HashFunc>
-    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node, std::size_t *path_len) const {
+    const TObject& Nswg<TObject, HashFunc>::greedy_search(const TObject& target_node, const TObject& start_node, double *path_len) const {
         
         const TObject *cur_node = &start_node;
         const TObject *next_node = nullptr;
@@ -78,7 +78,7 @@ namespace geli {
     void Nswg<TObject, HashFunc>::multi_search(const TObject& target_node, 
                                                std::set<TObject, ClosestToCompare>& res, 
                                                std::size_t queries_count,
-                                               std::size_t *path_len) const {
+                                               double *path_len) const {
         if (!res.size()) {
             res.clear();
         }
@@ -89,6 +89,9 @@ namespace geli {
             const TObject& enter_node = this->graph.get_random_node();
             const TObject& local_min = this->greedy_search(target_node, enter_node, path_len);
             res.insert(local_min);
+        }
+        if (path_len) {
+            *path_len /= queries_count;
         }
     }
 

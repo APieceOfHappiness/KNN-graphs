@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# clear; 
+clear; 
 # g++ -g -std=c++20 ./headers/point.hpp ./headers/DynamicDistribution.hpp ./source/DynamicDistribution.cpp ./source/point.cpp ./tests/Kleinberg_graph_test.cpp  -o ./res; 
 # g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/PonomarenkoGraph.hpp ./headers/point.hpp ./source/point.cpp ./tests/figure_test.cpp ./headers/Figure.hpp ./source/Figure.cpp -o ./res; 
 # g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/PonomarenkoGraph.hpp ./headers/point.hpp ./source/point.cpp ./tests/Ponomarenko_graph_test.cpp -o ./res; 
 # g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/KleinbergGraph.hpp ./headers/point.hpp ./source/point.cpp ./tests/Kleinberg_graph_test.cpp -o ./res;
 # g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/RandomGraph.hpp ./headers/point.hpp ./source/point.cpp ./tests/random_graph_test.cpp ./headers/Figure.hpp ./source/Figure.cpp -o ./res;
-g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/RandomGraph.hpp ./headers/DynamicDistribution.hpp ./source/DynamicDistribution.cpp ./headers/PonomarenkoGraph.hpp ./headers/KleinbergGraph.hpp ./headers/point.hpp ./source/point.cpp ./tests/main_test.cpp ./headers/Figure.hpp ./source/Figure.cpp -o ./res;
+g++ -g -std=c++20 ./headers/Nswg.hpp ./headers/RandomGraph.hpp ./headers/DynamicDistribution.hpp ./source/DynamicDistribution.cpp ./headers/PonomarenkoGraph.hpp ./headers/KleinbergGraph.hpp ./headers/Point.hpp ./source/Point.cpp ./tests/main.cpp ./headers/Figure.hpp ./source/Figure.cpp -o ./res;
 # g++ -g -std=c++20 ./point.hpp ./point.cpp ./point_test.cpp -o ./res
 ./res; 
 # rm ./res;

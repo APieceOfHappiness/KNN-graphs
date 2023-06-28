@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <random>
-#include "./graph.hpp"
+#include "./Graph.hpp"
 #include "./Nswg.hpp"
 #include "./DynamicDistribution.hpp"
 

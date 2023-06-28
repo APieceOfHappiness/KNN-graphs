@@ -15,11 +15,13 @@
 #include <limits>
 
 #include "../headers/PonomarenkoGraph.hpp"
-#include "../headers/point.hpp"
+#include "../headers/Point.hpp"
 
 namespace geli {
     namespace graphic_object {
         const double Nan = std::numeric_limits<double>::quiet_NaN();
+
+        void vsmooth(std::vector<double>& v, size_t count);
 
         class Figure {
             std::ofstream script;

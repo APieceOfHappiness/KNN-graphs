@@ -1,6 +1,6 @@
 #ifndef PONOMARENKO_GRAPH_HPP
 #define PONOMARENKO_GRAPH_HPP
-#include "./graph.hpp"
+#include "./Graph.hpp"
 #include "./Nswg.hpp"
 #include <set>
 #include <functional>

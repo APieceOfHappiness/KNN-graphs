@@ -1,7 +1,7 @@
 #ifndef NSWG_HPP
 #define NSWG_HPP
 
-#include "./graph.hpp"
+#include "./Graph.hpp"
 // #include "./Figure.hpp"
 #include <set>
 #include <functional>
@@ -12,7 +12,7 @@ namespace geli {
     struct SearchInfo {
         TObject obj;
         double loss;
-        std::size_t path_len;
+        double path_len;
     };
 
     template<typename TObject, typename HashFunc>
@@ -31,7 +31,7 @@ namespace geli {
         void multi_search(const TObject& target_node, 
                           std::set<TObject, ClosestToCompare>& res, 
                           std::size_t count,
-                          std::size_t *path_len) const;
+                          double *path_len) const;
     
     public:
         virtual void load_nodes(const std::vector<TObject>& objects) = 0;
@@ -41,7 +41,7 @@ namespace geli {
 
         const std::vector<TObject>& get_nodes() const;
 
-        const TObject& greedy_search(const TObject& target_node, const TObject& start_node, std::size_t *path_len) const;
+        const TObject& greedy_search(const TObject& target_node, const TObject& start_node, double *path_len) const;
         SearchInfo<TObject> get_best_element(const TObject& target_node, std::size_t count) const;
 
         const std::vector<TObject>& get_neighbours(const TObject& p) const;

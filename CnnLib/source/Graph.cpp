@@ -1,9 +1,13 @@
 #ifndef GRAPH_CPP
 #define GRAPH_CPP
 
-#include "../headers/graph.hpp"
+#include "../headers/Graph.hpp"
 
 namespace geli {
+
+    template<typename TObject, typename HashFunc>
+    Graph<TObject, HashFunc>::Graph() : size(0) {};
+
     template<typename TObject, typename HashFunc>
     void Graph<TObject, HashFunc>::add_node(const TObject& p) {
         if (this->consists_node(p)) {
@@ -104,10 +108,11 @@ namespace geli {
         if (!this->get_size()) {
             throw std::runtime_error("the graph is empty");
         }
+        
         std::random_device device;
         std::mt19937 rng(device());
         std::uniform_int_distribution<int> range(0, this->get_size() - 1); 
-
+        
         return this->nodes[range(rng)];
     }
 

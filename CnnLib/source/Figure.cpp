@@ -2,9 +2,43 @@
 #define FIGURE_CPP
 
 #include "../headers/Figure.hpp"
+#include <queue>
 
 namespace geli {
     namespace graphic_object {
+
+        void vsmooth(std::vector<double>& v, std::size_t count) {
+            if (v.size() < count) {
+                throw std::invalid_argument("v.size() < count");
+            }
+
+            if (count <= 0) {
+                throw std::invalid_argument("count must be > 0");
+            }
+
+            std::queue<double> q;
+            double sum = 0;
+            for (std::size_t i = 0; i < count; ++i) {
+                q.push(v[i]);
+                sum += v[i];
+            }
+
+            for (std::size_t i = 0; i < v.size() - count; ++i) {
+                v[i] = sum / count;
+                q.push(v[i + count]);
+                
+                sum += q.back();
+                sum -= q.front();
+
+                q.pop();
+            }
+            v[v.size() - count] = sum / count;
+
+            for (std::size_t i = 0; i < count - 1; ++i) {
+                v.pop_back();
+            }
+        }
+
         Figure::Figure(const std::string& name) : script(name + ".py"), name(name) {
             if (!this->script.is_open()) {
                 throw std::runtime_error("cannot open the file");
@@ -12,6 +46,7 @@ namespace geli {
 
             this->script << "import plotly.graph_objects as go" << std::endl;
             this->script << "fig = go.Figure()" << std::endl;
+            this->update_title(name);
         }
 
         void Figure::write_vector_as_list(const std::string& name, const std::vector<double> &data) {
